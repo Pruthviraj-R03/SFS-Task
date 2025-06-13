@@ -1,0 +1,48 @@
+# Define semantic HTML. 
+Q)Why is it important for web accessibility and SEO?
+Semantic HTML refers to HTML tags that clearly describe their meaning and content to both browsers and developers (e.g., <article>, <nav>).
+It improves accessibility by helping screen readers interpret the content correctly and 
+enhances SEO by allowing search engines to better understand the page structure and importance of content.
+
+b) Five semantic HTML5 elements and their purpose:
+
+<header>Defines introductory content or navigation links.
+
+<nav>Contains navigation menus links.
+
+<main> Represents the main content of the document.
+
+<article></article> Represents self-contained content like blog posts or news.
+
+<footer>Contains footer information like copyright.
+
+c) Example of semantic HTML structure:
+
+html
+Copy
+Edit
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Semantic HTML Example</title>
+</head>
+<body>
+  <header>
+    <h1>My Website</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <h2>Blog Post</h2>
+      <p>This is an example blog post.</p>
+    </article>
+  </main>
+  <footer>
+    <p>&copy; 2025 My Website</p>
+  </footer>
+</body>
+</html>

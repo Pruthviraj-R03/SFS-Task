@@ -1,0 +1,11 @@
+Q4. Responsive Image Techniques 
+Use the <picture> element with different srcset options to provide a responsive image experience.
+ Explain briefly how srcset and sizes help optimize image loading on different screen sizes.
+Answer)
+<picture>
+  <source srcset="medium.jpg" media="(max-width: 600px)">
+  <source srcset="image-medium.jpg" media="(max-width: 1200px)">
+  <img src="pic.jpg" alt="Sample Image">
+</picture>
+Answer:
+Srcset is used because  select the best image based on screen.
