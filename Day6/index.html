@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Private Counter</title>
+  <style>
+    .counter-box {
+      font-family: sans-serif;
+      background: #fef3c7;
+      padding: 20px;
+      width: 250px;
+      margin: 20px auto;
+      border-radius: 10px;
+      text-align: center;
+    }
+    button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #facc15;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="counter-box">
+    <h3>Private Counter</h3>
+    <p>Value: <span id="counterValue">0</span></p>
+    <button onclick="incrementCounter()">Increment</button>
+  </div>
+
+  <script>
+    const createCounter = () => {
+      let count = 0;
+      return {
+        increment: () => ++count,
+        getValue: () => count
+      };
+    };
+
+    const counter = createCounter();
+
+    // Define on window to avoid scope issues
+    window.incrementCounter = function () {
+      document.getElementById("counterValue").innerText = counter.increment();
+    };
+  </script>
+</body>
+</html>
