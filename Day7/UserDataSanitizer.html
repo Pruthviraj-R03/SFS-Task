@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Data Sanitizer</title>
+  <style>
+    body { font-family: sans-serif; background: #f3f4f6; padding: 20px; }
+    .sanitizer-box { background: #fff; padding: 20px; border-radius: 10px; max-width: 400px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, textarea { width: 100%; margin-top: 10px; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
+    button { margin-top: 10px; padding: 10px; background: #10b981; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    pre { background: #f9fafb; padding: 10px; border-radius: 5px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="sanitizer-box">
+    <h2>User Data Sanitizer</h2>
+    <textarea id="rawData" placeholder="Paste raw input here..."></textarea>
+    <button onclick="sanitize()">Sanitize</button>
+    <pre id="output"></pre>
+  </div>
+
+  <script>
+    function sanitizeInput(str) {
+      return str
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .trim()
+        .replace(/\s+/g, ' ');
+    }
+
+    function sanitize() {
+      const raw = document.getElementById("rawData").value;
+      const clean = sanitizeInput(raw);
+      document.getElementById("output").innerText = clean;
+    }
+  </script>
+</body>
+</html>
