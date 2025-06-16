@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ES6 Utilities Toolkit</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 20px; background: #f9fafb; }
+    section { background: #fff; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+    h2 { margin-top: 0; }
+    input, select, button { margin-top: 10px; display: block; width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+    button { background: #3b82f6; color: white; cursor: pointer; border: none; }
+    pre { background: #f3f4f6; padding: 10px; border-radius: 5px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <!-- Type-Safe Calculator -->
+  <section>
+    <h2>🔢 Type-Safe Calculator</h2>
+    <input type="number" id="calcNum1" placeholder="Enter number 1" />
+    <input type="number" id="calcNum2" placeholder="Enter number 2" />
+    <select id="calcOp">
+      <option value="+">+</option>
+      <option value="-">−</option>
+      <option value="*">×</option>
+      <option value="/">÷</option>
+    </select>
+    <button onclick="calculate()">Calculate</button>
+    <p id="calcResult"></p>
+  </section>
+
+  <!-- Error Tester -->
+  <section>
+    <h2>💥 Error-Prone Function Tester</h2>
+    <button onclick="testErrorFn()">Run Error Test</button>
+    <pre id="errorOutput"></pre>
+  </section>
+
+  <!-- Type Checker -->
+  <section>
+    <h2>🔍 Type Checker</h2>
+    <input type="text" id="typeInput" placeholder="Enter value (try: 123, true, [1], null)" />
+    <button onclick="checkType()">Check Type</button>
+    <p id="typeResult"></p>
+  </section>
+
+  <!-- Spread Operator Utilities -->
+  <section>
+    <h2>🧩 Spread Operator Utilities</h2>
+    <button onclick="runSpreadUtilities()">Show Examples</button>
+    <pre id="spreadResult"></pre>
+  </section>
+
+  <!-- Validation Module -->
+  <section>
+    <h2>✅ Reusable Validation Module</h2>
+    <input type="text" id="emailInput" placeholder="Enter email" />
+    <input type="text" id="phoneInput" placeholder="Enter phone number" />
+    <button onclick="validateUserInput()">Validate</button>
+    <p id="validationResult"></p>
+  </section>
+
+  <script>
+    // Calculator
+    const calculate = () => {
+      const n1 = parseFloat(document.getElementById("calcNum1").value);
+      const n2 = parseFloat(document.getElementById("calcNum2").value);
+      const op = document.getElementById("calcOp").value;
+      const output = document.getElementById("calcResult");
+
+      if (Number.isNaN(n1) || Number.isNaN(n2)) return output.innerText = "Invalid input";
+
+      const ops = {
+        '+': (a, b) => a + b,
+        '-': (a, b) => a - b,
+        '*': (a, b) => a * b,
+        '/': (a, b) => b !== 0 ? a / b : 'Cannot divide by zero'
+      };
+
+      output.innerText = `Result: ${ops[op](n1, n2)}`;
+    };
+
+    // Error Tester
+    const safeExecutor = (fn, ...args) => {
+      try {
+        return { result: fn(...args), error: null };
+      } catch (e) {
+        return { result: null, error: e.message };
+      }
+    };
+
+    const testErrorFn = () => {
+      const out = safeExecutor(() => JSON.parse("{"));
+      document.getElementById("errorOutput").innerText = JSON.stringify(out, null, 2);
+    };
+
+    // Type Checker
+    const typeChecker = value => {
+      if (value === "null") return "null";
+      try {
+        const val = eval(value);
+        if (Array.isArray(val)) return "array";
+        return typeof val;
+      } catch {
+        return typeof value;
+      }
+    };
+
+    const checkType = () => {
+      const input = document.getElementById("typeInput").value;
+      document.getElementById("typeResult").innerText = `Type: ${typeChecker(input)}`;
+    };
+
+    // Spread Operator
+    const runSpreadUtilities = () => {
+      const arr1 = [1, 2], arr2 = [3, 4];
+      const obj1 = { a: 1 }, obj2 = { b: 2 };
+      const clone = { ...obj1, ...obj2, a: 5 };
+      const result = {
+        mergedArray: [...arr1, ...arr2],
+        mergedObject: clone
+      };
+      document.getElementById("spreadResult").innerText = JSON.stringify(result, null, 2);
+    };
+
+    // Validator
+    const Validator = {
+      isEmail: str => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str),
+      isPhone: str => /^[6-9]\d{9}$/.test(str),
+    };
+
+    const validateUserInput = () => {
+      const email = document.getElementById("emailInput").value.trim();
+      const phone = document.getElementById("phoneInput").value.trim();
+      const emailValid = Validator.isEmail(email);
+      const phoneValid = Validator.isPhone(phone);
+
+      document.getElementById("validationResult").innerText =
+        emailValid && phoneValid
+          ? "✔️ Valid Email and Phone"
+          : "❌ Invalid Email or Phone";
+    };
+  </script>
+</body>
+</html>
