@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Safe Function Wrapper</title>
+  <style>
+    .wrapper-box {
+      font-family: sans-serif;
+      background: #e0f2fe;
+      padding: 20px;
+      width: 300px;
+      margin: 20px auto;
+      border-radius: 10px;
+    }
+    input, button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper-box">
+    <h3>Safe Division</h3>
+    <input type="number" id="numA" placeholder="Enter numerator">
+    <input type="number" id="numB" placeholder="Enter denominator">
+    <button onclick="safeDivide()">Divide</button>
+    <p id="resultMsg"></p>
+  </div>
+
+  <script>
+    const safeExecute = fn => (...args) => {
+      try {
+        return fn(...args);
+      } catch (err) {
+        document.getElementById("resultMsg").innerHTML = `<span class="error">${err.message}</span>`;
+      }
+    };
+
+    const divide = (a, b) => {
+      if (b === 0) throw new Error("Cannot divide by zero");
+      return a / b;
+    };
+
+    const safeDivide = safeExecute(() => {
+      const a = parseFloat(document.getElementById("numA").value);
+      const b = parseFloat(document.getElementById("numB").value);
+      const result = divide(a, b);
+      document.getElementById("resultMsg").textContent = `Result: ${result}`;
+    });
+  </script>
+</body>
+</html>
